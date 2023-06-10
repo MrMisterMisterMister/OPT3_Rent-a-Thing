@@ -1,4 +1,4 @@
-package com.rentathing.utils.CSS;
+package com.rentathing.utils.css;
 
 import java.util.Objects;
 

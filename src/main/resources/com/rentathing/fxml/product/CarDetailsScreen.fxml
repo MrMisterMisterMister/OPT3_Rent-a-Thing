@@ -14,9 +14,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" >
+<BorderPane prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <bottom>
-      <Label text="Employee" BorderPane.alignment="CENTER">
+      <Label fx:id="employeeLabel" text="Medewerker" BorderPane.alignment="CENTER">
          <font>
             <Font size="14.0" />
          </font>
@@ -215,7 +215,7 @@
                         <Separator prefWidth="200.0" />
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <MFXButton fx:id="rentButton" layoutX="57.0" layoutY="10.0" onAction="#rentProduct" prefHeight="40.0" prefWidth="120.0" text="Verhuur" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="57.0" AnchorPane.rightAnchor="56.599999999999994" AnchorPane.topAnchor="10.0">
+                              <MFXButton fx:id="rentButton" defaultButton="true" layoutX="57.0" layoutY="10.0" onAction="#rentProduct" prefHeight="40.0" prefWidth="120.0" text="Verhuur" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="57.0" AnchorPane.rightAnchor="56.599999999999994" AnchorPane.topAnchor="10.0">
                                  <font>
                                     <Font size="14.0" />
                                  </font>

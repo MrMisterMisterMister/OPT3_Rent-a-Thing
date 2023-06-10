@@ -1,7 +1,7 @@
 package com.rentathing.utils;
 
-import com.rentathing.utils.CSS.CSSLoader;
-import com.rentathing.utils.CSS.CSSPaths;
+import com.rentathing.utils.css.CSSLoader;
+import com.rentathing.utils.css.CSSPaths;
 import io.github.palexdev.materialfx.css.themes.MFXThemeManager;
 import io.github.palexdev.materialfx.css.themes.Themes;
 import javafx.fxml.FXMLLoader;
@@ -17,7 +17,7 @@ public class WindowOpener {
             FXMLLoader loader = new FXMLLoader(WindowOpener.class.getResource(path));
             Parent root = (newRoot == null) ? loader.load() : newRoot;
 
-            // Set up the scene and add css
+            // Set up the scene and add CSS
             Scene scene = new Scene(root);
             scene.getStylesheets().add(CSSLoader.loadCSS(CSSPaths.RENT_A_THING_CSS));
 

@@ -1,10 +1,12 @@
 package com.rentathing.ui.product;
 
+import com.rentathing.authentication.EmployeeSessionManager;
 import com.rentathing.pricecalculators.CarRentalPriceCalculator;
 import com.rentathing.pricecalculators.RentalPriceCalculator;
 import com.rentathing.products.Car;
-import com.rentathing.rental.Rental;
+import com.rentathing.rentalservice.RentalService;
 import com.rentathing.products.Product;
+import com.rentathing.utils.EmployeeSessionAware;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import io.github.palexdev.materialfx.controls.MFXTextField;
@@ -17,7 +19,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-public class CarDetailsController implements Initializable {
+public class CarDetailsController implements Initializable, EmployeeSessionAware {
 
     @FXML
     private Label productLabel;
@@ -47,12 +49,17 @@ public class CarDetailsController implements Initializable {
     private MFXButton rentButton;
     @FXML
     private MFXButton returnButton;
+    @FXML
+    private Label employeeLabel;
 
+    private EmployeeSessionManager sessionManager;
     private RentalPriceCalculator rentalPriceCalculator;
     private Car car;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        employeeLabel.setText(sessionManager.getActiveEmployee().getFullName());
+
         if (car.getRental() == null) {
             initializeRentMode();
         } else {
@@ -87,10 +94,10 @@ public class CarDetailsController implements Initializable {
         // Get the necessary input values (rented by, rented to, insurance checkbox state)
         String rentedBy = rentedByTextField.getText();
         String rentedTo = rentedToTextField.getText();
-        Rental rental = createRental(rentedBy, rentedTo, startDatePicker.getValue(), endDatePicker.getValue(), insuranceCheckBox.isSelected());
+        RentalService rentalService = createRental(rentedBy, rentedTo, startDatePicker.getValue(), endDatePicker.getValue(), insuranceCheckBox.isSelected());
 
         // Rent the car
-        car.setRental(rental);
+        car.setRental(rentalService);
         System.out.println(car.getName() + " rented.");
         initializeReturnMode();
     }
@@ -124,7 +131,7 @@ public class CarDetailsController implements Initializable {
         startDatePicker.setValue(LocalDate.now());
         endDatePicker.setValue(null);
         insuranceCheckBox.setSelected(false);
-        rentedByTextField.setText("");
+        rentedByTextField.setText(sessionManager.getActiveEmployee().getFullName());
         rentedToTextField.setText("");
 
         rentPriceLabel.setText(String.format("€%.2f/d", 0.00));
@@ -145,17 +152,17 @@ public class CarDetailsController implements Initializable {
     }
 
     private void initializeReturnMode() {
-        Rental rental = car.getRental();
+        RentalService rentalService = car.getRental();
 
-        startDatePicker.setValue(rental.getStartDate());
-        endDatePicker.setValue(rental.getEndDate());
-        insuranceCheckBox.setSelected(rental.isInsured());
-        rentedByTextField.setText(rental.getRentedBy());
-        rentedToTextField.setText(rental.getRentedTo());
+        startDatePicker.setValue(rentalService.getStartDate());
+        endDatePicker.setValue(rentalService.getEndDate());
+        insuranceCheckBox.setSelected(rentalService.isInsured());
+        rentedByTextField.setText(rentalService.getRentedBy());
+        rentedToTextField.setText(rentalService.getRentedTo());
 
         double rentalPrice = rentalPriceCalculator.calculateBasePrice(car);
         double insurancePrice = rentalPriceCalculator.calculateInsuranceCost(car);
-        double totalPrice = rentalPriceCalculator.calculateRentalPrice(car, rental.isInsured(), rental.getStartDate(), rental.getEndDate());
+        double totalPrice = rentalPriceCalculator.calculateRentalPrice(car, rentalService.isInsured(), rentalService.getStartDate(), rentalService.getEndDate());
 
         // Update the UI labels with the calculated prices
         rentPriceLabel.setText(String.format("€%.2f/d", rentalPrice));
@@ -180,9 +187,14 @@ public class CarDetailsController implements Initializable {
         return new CarRentalPriceCalculator();
     }
 
-    private Rental createRental(String rentedBy, String rentedTo, LocalDate startDate, LocalDate endDate, boolean insured) {
+    private RentalService createRental(String rentedBy, String rentedTo, LocalDate startDate, LocalDate endDate, boolean insured) {
         // Create and return a new Rental instance
-        return new Rental(rentedBy, rentedTo, startDate, endDate, insured);
+        return new RentalService(rentedBy, rentedTo, startDate, endDate, insured);
+    }
+
+    @Override
+    public void setEmployeeSessionManager(EmployeeSessionManager sessionManager) {
+        this.sessionManager = sessionManager;
     }
 }
 

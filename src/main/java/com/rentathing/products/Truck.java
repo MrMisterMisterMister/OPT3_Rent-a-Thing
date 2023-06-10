@@ -1,5 +1,7 @@
 package com.rentathing.products;
 
+import com.rentathing.authentication.EmployeeSessionManager;
+
 public class Truck extends Product {
 
     private int loadCapacity;
@@ -20,7 +22,7 @@ public class Truck extends Product {
     }
 
     @Override
-    public void detailScreen() {
+    public void detailScreen(EmployeeSessionManager sessionManager) {
 
     }
 }

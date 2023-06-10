@@ -1,4 +1,7 @@
 package com.rentathing.products;
+
+import com.rentathing.authentication.EmployeeSessionManager;
+
 public class Drill extends Product {
 
     private String brand;
@@ -11,7 +14,7 @@ public class Drill extends Product {
     }
 
     @Override
-    public void detailScreen() {
+    public void detailScreen(EmployeeSessionManager sessionManager) {
 
     }
 }

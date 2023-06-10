@@ -9,6 +9,8 @@
 .table-view {
     -fx-background-color: rgb(255, 255, 255);
     -fx-table-header-border-color: rgb(175, 175, 200);
+    -fx-alignment: center;
+    -fx-font-size: 14px;
 }
 
 .table-header-background {

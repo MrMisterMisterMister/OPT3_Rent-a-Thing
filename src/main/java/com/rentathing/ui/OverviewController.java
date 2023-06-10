@@ -1,9 +1,9 @@
 package com.rentathing.ui;
 
-import com.rentathing.rental.Rental;
+import com.rentathing.authentication.EmployeeSessionManager;
 import com.rentathing.observers.IObserver;
-import com.rentathing.products.Car;
 import com.rentathing.products.Product;
+import com.rentathing.utils.EmployeeSessionAware;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,10 +14,10 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
-import java.time.LocalDate;
+import java.util.List;
 import java.util.ResourceBundle;
 
-public class OverviewController implements IObserver, Initializable {
+public class OverviewController implements IObserver, Initializable, EmployeeSessionAware {
 
     @FXML
     private TableView<Product> overviewTableView;
@@ -30,13 +30,16 @@ public class OverviewController implements IObserver, Initializable {
     @FXML
     private Label employeeLabel;
 
-    private ObservableList<Product> products;
+    private final ObservableList<Product> productList = FXCollections.observableArrayList();
+    private EmployeeSessionManager sessionManager;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initializeTableColumns();
-        initializeSampleData();
+        updateTableData();
         initializeTableView();
+
+        employeeLabel.setText(sessionManager.getActiveEmployee().getFullName());
     }
 
     private void initializeTableColumns() {
@@ -60,7 +63,7 @@ public class OverviewController implements IObserver, Initializable {
     }
 
     private TableCell<Product, String> createClickableTableCell() {
-        return new TableCell<Product, String>() {
+        return new TableCell<>() {
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
@@ -75,7 +78,7 @@ public class OverviewController implements IObserver, Initializable {
                 setOnMouseClicked(event -> {
                     if (!isEmpty() && event.getClickCount() == 2) {
                         Product product = getTableView().getItems().get(getIndex());
-                        product.detailScreen();
+                        product.detailScreen(sessionManager);
                     }
                 });
                 setCursor(Cursor.HAND);
@@ -83,39 +86,41 @@ public class OverviewController implements IObserver, Initializable {
         };
     }
 
-    private void initializeSampleData() {
-        // TODO Product.getProducts() implementation
-        products = FXCollections.observableArrayList();
-        for (int i = 1; i < 3; i++) {
-            Car car;
-            if (i % 2 == 0) {
-                car = new Car("Car " + i, "Brand " + i, 1000 * i, 2000 * i);
-                car.setRental(new Rental("Employee " + i, "Customer " + i, LocalDate.now(), LocalDate.of(2023, 8, 15), true));
-            } else {
-                car = new Car("Car " + i, "Brand " + i, 1000 * i, 2000 * i);
+    private void initializeTableView() {
+        overviewTableView.setItems(productList);
+        overviewTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        overviewTableView.setPlaceholder(new Label("Geen producten op voorraad."));
+    }
+
+    private void updateTableData() {
+        List<Product> currentProducts = Product.getProducts();
+
+        // Remove products that are no longer present
+        productList.removeIf(product -> !currentProducts.contains(product));
+
+        // Add new products to the list
+        for (Product product : currentProducts) {
+            if (!productList.contains(product)) {
+                product.registerObserver(this);
+                productList.add(product);
             }
-            car.registerObserver(this);
-            products.add(car);
+        }
+
+        // Check if productList is not empty and remove the placeholder
+        if (!productList.isEmpty()) {
+            overviewTableView.setPlaceholder(null);
         }
     }
 
-    private void initializeTableView() {
-        overviewTableView.setItems(products);
-        overviewTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        overviewTableView.setPlaceholder(new Label("Geen producten op voorraad."));
-        // Set cell alignment
-        numberColumn.setStyle("-fx-alignment: CENTER;");
-        productColumn.setStyle("-fx-alignment: CENTER;");
-        statusColumn.setStyle("-fx-alignment: CENTER;");
-        // Set font size
-        numberColumn.setStyle("-fx-font-size: 14px;");
-        productColumn.setStyle("-fx-font-size: 14px;");
-        statusColumn.setStyle("-fx-font-size: 14px;");
-    }
 
     @Override
     public void update() {
-        // Refresh the table view
+        updateTableData();
         overviewTableView.refresh();
+    }
+
+    @Override
+    public void setEmployeeSessionManager(EmployeeSessionManager sessionManager) {
+        this.sessionManager = sessionManager;
     }
 }

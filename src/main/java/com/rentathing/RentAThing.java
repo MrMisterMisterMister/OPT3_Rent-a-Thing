@@ -11,7 +11,6 @@ public class RentAThing extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         WindowOpener.openWindow("/com/rentathing/fxml/LoginScreen.fxml", null);
-
         stage.close();
     }
 }

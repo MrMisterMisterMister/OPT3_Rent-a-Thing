@@ -1,6 +1,7 @@
 package com.rentathing.products;
 
-import com.rentathing.rental.Rental;
+import com.rentathing.authentication.EmployeeSessionManager;
+import com.rentathing.rentalservice.RentalService;
 import com.rentathing.observers.Observable;
 import com.rentathing.utils.WindowOpener;
 import javafx.fxml.FXMLLoader;
@@ -11,13 +12,16 @@ import java.util.List;
 public abstract class Product extends Observable {
     private String name;
     private boolean inStock;
-    private Rental rental;
+    private RentalService rentalService;
     private static List<Product> productList = new ArrayList<>();
 
     public Product(String name) {
         this.name = name;
         this.inStock = true;
         productList.add(this);
+
+        setChanged();
+        notifyObservers();
     }
 
     public String getName() {
@@ -32,25 +36,27 @@ public abstract class Product extends Observable {
         return productList;
     }
 
-    public Rental getRental() {
-        return rental;
+    public RentalService getRental() {
+        return rentalService;
     }
 
-    public void setRental(Rental rental) {
-        this.rental = rental;
+    public void setRental(RentalService rentalService) {
+        this.rentalService = rentalService;
         this.inStock = false;
+
         setChanged();
         notifyObservers();
     }
 
     public void returnProduct() {
-        this.rental = null;
+        this.rentalService = null;
         this.inStock = true;
+
         setChanged();
         notifyObservers();
     }
 
-    public abstract void detailScreen();
+    public abstract void detailScreen(EmployeeSessionManager sessionManager);
 
     public void openProductDetailScreen(String fxml, Object controller) {
         try {

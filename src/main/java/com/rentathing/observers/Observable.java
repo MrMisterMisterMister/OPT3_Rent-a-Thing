@@ -5,22 +5,22 @@ import java.util.List;
 
 public abstract class Observable {
 
-    private final List<IObserver> OBSERVERS;
+    private final List<IObserver> observers;
     private boolean hasChanged;
 
     protected Observable() {
-        OBSERVERS = new ArrayList<>();
+        observers = new ArrayList<>();
     }
 
     public void registerObserver(IObserver observer) {
-        OBSERVERS.add(observer);
+        observers.add(observer);
     }
     public boolean removeObserver(IObserver observer) {
-        return OBSERVERS.remove(observer);
+        return observers.remove(observer);
     }
     public void notifyObservers() {
         if (hasChanged) {
-            for (IObserver observer : OBSERVERS) {
+            for (IObserver observer : observers) {
                 observer.update();
             }
             clearChanged();

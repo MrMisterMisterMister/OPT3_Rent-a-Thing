@@ -21,9 +21,9 @@
                   <Insets bottom="10.0" />
                </VBox.margin>
             </Text>
-            <MFXTextField fx:id="usernameTextField" floatMode="DISABLED" minHeight="40.0" minWidth="230.0" prefHeight="40.0" prefWidth="230.0" promptText="E-mailadres" />
-            <MFXPasswordField fx:id="passwordField" floatMode="DISABLED" minHeight="40.0" minWidth="230.0" prefHeight="40.0" prefWidth="230.0" promptText="Wachtwoord" />
-            <MFXButton onAction="#login" prefHeight="40.0" prefWidth="120.0" text="Inloggen">
+            <MFXTextField fx:id="usernameTextField" floatMode="DISABLED" minHeight="40.0" minWidth="230.0" prefHeight="40.0" prefWidth="230.0" promptText="E-mailadres" VBox.vgrow="ALWAYS" />
+            <MFXPasswordField fx:id="passwordField" floatMode="DISABLED" minHeight="40.0" minWidth="230.0" prefHeight="40.0" prefWidth="230.0" promptText="Wachtwoord" VBox.vgrow="ALWAYS" />
+            <MFXButton defaultButton="true" onAction="#login" prefHeight="40.0" prefWidth="120.0" text="Inloggen">
                <font>
                   <Font size="14.0" />
                </font>
