@@ -1,0 +1,70 @@
+/* Set background color for all stages */
+.root {
+    -fx-background-color: rgb(240, 240, 240);
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+}
+
+/* Table View Styling */
+.table-view {
+    -fx-background-color: rgb(255, 255, 255);
+    -fx-table-header-border-color: rgb(175, 175, 200);
+}
+
+.table-header-background {
+    -fx-background-color: rgb(220, 220, 240);
+}
+
+.table-row-cell {
+    -fx-background-color: rgb(255, 255, 255);
+    -fx-border-color: transparent;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: rgb(245, 245, 250);
+}
+
+.table-row-cell:selected {
+    -fx-background-color: rgb(134, 179, 255);
+}
+
+.table-cell {
+    -fx-text-fill: rgb(0, 0, 0);
+}
+
+.table-column-header {
+    -fx-background-color: rgb(220, 220, 240);
+    -fx-border-color: transparent;
+    -fx-text-fill: rgb(0, 0, 0);
+    -fx-font-weight: bold;
+}
+
+.table-column-header:hover {
+    -fx-background-color: rgb(200, 200, 230);
+}
+
+.table-column {
+    -fx-alignment: CENTER;
+}
+
+/* MFXButton Styling */
+.mfx-button {
+    -fx-background-color: linear-gradient(to bottom, rgb(104, 159, 255), rgb(70, 117, 255));
+    -fx-text-fill: rgb(255, 255, 255);
+}
+
+.mfx-button:hover {
+    -fx-background-color: linear-gradient(to bottom, rgb(67, 117, 255), rgb(45, 91, 255));
+}
+
+/* MFXTextField Styling */
+.mfx-text-field {
+    -fx-background-color: rgb(240, 240, 240);
+    -fx-text-fill: rgb(0, 0, 0);
+}
+
+/* MFXPasswordField Styling */
+.mfx-password-field {
+    -fx-background-color: rgb(240, 240, 240);
+    -fx-text-fill: rgb(0, 0, 0);
+}
