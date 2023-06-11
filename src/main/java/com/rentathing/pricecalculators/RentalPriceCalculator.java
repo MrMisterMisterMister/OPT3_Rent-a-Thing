@@ -1,6 +1,6 @@
 package com.rentathing.pricecalculators;
 
-import com.rentathing.products.Product;
+import com.rentathing.models.Product;
 
 import java.time.LocalDate;
 

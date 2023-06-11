@@ -1,4 +1,4 @@
-package com.rentathing.utils;
+package com.rentathing.utils.screen;
 
 import com.rentathing.utils.css.CSSLoader;
 import com.rentathing.utils.css.CSSPaths;

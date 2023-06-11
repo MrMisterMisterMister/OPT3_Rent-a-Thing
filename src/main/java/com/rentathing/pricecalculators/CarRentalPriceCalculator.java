@@ -1,7 +1,7 @@
 package com.rentathing.pricecalculators;
 
-import com.rentathing.products.Car;
-import com.rentathing.products.Product;
+import com.rentathing.models.Car;
+import com.rentathing.models.Product;
 
 public class CarRentalPriceCalculator extends RentalPriceCalculator {
     @Override

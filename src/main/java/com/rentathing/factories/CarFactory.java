@@ -1,10 +1,16 @@
 package com.rentathing.factories;
 
-import com.rentathing.products.Car;
+import com.rentathing.models.Car;
+import com.rentathing.models.Product;
+import com.rentathing.utils.parsing.ParsingUtils;
 
-public class CarFactory implements ICarFactory {
+public class CarFactory implements IProductFactory {
     @Override
-    public Car createCar(String name, String brand, int weight, int engineCapacity) {
-        return new Car(name, brand, weight, engineCapacity);
+    public Product createProduct(String productName, String... additionalParams) {
+        String brand = additionalParams[0];
+        int weight = ParsingUtils.parseStringToInt(additionalParams[1]);
+        int engineCapacity = ParsingUtils.parseStringToInt(additionalParams[2]);
+
+        return new Car(productName, brand, weight, engineCapacity);
     }
 }

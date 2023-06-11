@@ -1,8 +1,9 @@
 package com.rentathing.ui;
 
 import com.rentathing.authentication.EmployeeSessionManager;
-import com.rentathing.utils.EmployeeSessionAware;
-import com.rentathing.utils.ScreenNavigator;
+import com.rentathing.utils.session.EmployeeSessionAware;
+import com.rentathing.utils.screen.ScreenNavigator;
+import com.rentathing.utils.mappings.ProductMappings;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -27,11 +28,11 @@ public class MainMenuController implements Initializable, EmployeeSessionAware {
     }
 
     public void openOverviewScreen() {
-        screenNavigator.openScreen("/com/rentathing/fxml/OverviewScreen.fxml", OverviewController.class, sessionManager);
+        screenNavigator.openScreen("/com/rentathing/fxml/OverviewScreen.fxml", OverviewController.class, sessionManager, null, null);
     }
 
     public void openManagementScreen() {
-        screenNavigator.openScreen("/com/rentathing/fxml/ManagementScreen.fxml", ManagementController.class, sessionManager);
+        screenNavigator.openScreen("/com/rentathing/fxml/ManagementScreen.fxml", ManagementController.class, sessionManager, null, new ProductMappings());
     }
 
     public void logout() {

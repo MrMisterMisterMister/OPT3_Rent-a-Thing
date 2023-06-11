@@ -1,4 +1,4 @@
-package com.rentathing.products;
+package com.rentathing.models;
 
 public enum ProductType {
 
