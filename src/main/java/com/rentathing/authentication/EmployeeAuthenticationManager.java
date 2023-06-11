@@ -21,7 +21,7 @@ public class EmployeeAuthenticationManager {
         employees = new ArrayList<>();
         employees.add(new Employee("john", "password123", "John Smith"));
         employees.add(new Employee("jane", "password456", "Jane Doe"));
-        employees.add(new Employee("admin", "admin", "admin"));
+        employees.add(new Employee("admin", "admin", "Admin Root"));
     }
 
     public Employee authenticate(String username, String password) {

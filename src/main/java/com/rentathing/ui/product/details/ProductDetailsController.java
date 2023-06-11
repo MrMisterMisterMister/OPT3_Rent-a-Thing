@@ -101,7 +101,7 @@ public abstract class ProductDetailsController implements Initializable, Employe
         if (startDate != null && endDate != null) {
             // Perform the rental price calculation
             double rentalPrice = rentalPriceCalculator.calculateBasePrice(product);
-            double insurancePrice = rentalPriceCalculator.calculateInsuranceCost(product);
+            double insurancePrice = insured ? rentalPriceCalculator.calculateInsuranceCost(product) : 0;
             double totalPrice = rentalPriceCalculator.calculateRentalPrice(product, insured, startDate, endDate);
 
             // Update the UI labels with the calculated prices
