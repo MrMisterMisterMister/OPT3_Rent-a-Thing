@@ -3,15 +3,15 @@ package com.rentathing.rentalservice;
 import java.time.LocalDate;
 
 public class RentalService {
-    private String rentedTo;
     private String rentedBy;
+    private String rentedTo;
     private LocalDate startDate;
     private LocalDate endDate;
     private boolean insured;
 
-    public RentalService(String rentedTo, String rentedBy, LocalDate startDate, LocalDate endDate, boolean insured) {
-        this.rentedTo = rentedTo;
+    public RentalService(String rentedBy, String rentedTo, LocalDate startDate, LocalDate endDate, boolean insured) {
         this.rentedBy = rentedBy;
+        this.rentedTo = rentedTo;
         this.startDate = startDate;
         this.endDate = endDate;
         this.insured = insured;
