@@ -1,4 +1,4 @@
-package com.rentathing.authentication;
+package com.rentathing.models;
 
 public class Employee {
 

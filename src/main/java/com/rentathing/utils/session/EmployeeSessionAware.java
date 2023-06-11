@@ -1,4 +1,4 @@
-package com.rentathing.utils;
+package com.rentathing.utils.session;
 
 import com.rentathing.authentication.EmployeeSessionManager;
 

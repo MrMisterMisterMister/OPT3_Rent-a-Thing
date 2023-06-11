@@ -1,11 +1,13 @@
 package com.rentathing.ui;
 
 import com.rentathing.authentication.EmployeeSessionManager;
-import com.rentathing.products.ProductType;
-import com.rentathing.ui.product.CarCreationController;
-import com.rentathing.utils.EmployeeSessionAware;
-import com.rentathing.utils.ScreenNavigator;
-import com.rentathing.utils.WindowOpener;
+import com.rentathing.factories.IProductFactory;
+import com.rentathing.models.ProductType;
+import com.rentathing.ui.product.creation.ProductCreationController;
+import com.rentathing.utils.session.EmployeeSessionAware;
+import com.rentathing.utils.screen.ScreenNavigator;
+import com.rentathing.utils.mappings.ProductMappings;
+
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -17,9 +19,7 @@ import javafx.scene.control.TableView;
 
 import java.net.URL;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
 
 public class ManagementController implements Initializable, EmployeeSessionAware {
@@ -36,15 +36,7 @@ public class ManagementController implements Initializable, EmployeeSessionAware
     private ScreenNavigator screenNavigator;
     private EmployeeSessionManager sessionManager;
     private List<ProductType> productTypeList = Arrays.asList(ProductType.values());
-
-    private static final String TRUCK_CREATION_WINDOW = "TruckCreationScreen";
-    private static final String CAR_CREATION_WINDOW = "/com/rentathing/fxml/product/CarCreationScreen.fxml";
-
-    private static final Map<ProductType, String> windowMapping = new HashMap<>();
-    static {
-        windowMapping.put(ProductType.TRUCK, TRUCK_CREATION_WINDOW);
-        windowMapping.put(ProductType.CAR, CAR_CREATION_WINDOW);
-    }
+    private ProductMappings productMappings;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -66,7 +58,7 @@ public class ManagementController implements Initializable, EmployeeSessionAware
     }
 
     private TableCell<ProductType, String> createClickableTableCell() {
-        return new TableCell<>() {
+        return new TableCell<ProductType, String>() {
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
@@ -78,18 +70,22 @@ public class ManagementController implements Initializable, EmployeeSessionAware
             }
 
             {
-                setOnMouseClicked(event -> {
-                    if (!isEmpty() && event.getClickCount() == 2) {
-                        ProductType productType = getTableView().getItems().get(getIndex());
-                        String windowName = windowMapping.get(productType);
-                        if (windowName != null) {
-                            screenNavigator.openScreen(windowName, CarCreationController.class, sessionManager);
-                        }
+            setOnMouseClicked(event -> {
+                if (!isEmpty() && event.getClickCount() == 2) {
+                    ProductType productType = getTableView().getItems().get(getIndex());
+                    String windowName = productMappings.getWindowName(productType);
+                    IProductFactory productFactory = productMappings.getFactory(productType);
+                    ProductCreationController productCreationController = productMappings.getController(productType);
+                        screenNavigator.openScreen(windowName, productCreationController.getClass(), sessionManager, productFactory, null);
                     }
                 });
-                setCursor(Cursor.HAND);
+            setCursor(Cursor.HAND);
             }
         };
+    }
+
+    public void setProductMappings(ProductMappings productMappings) {
+        this.productMappings = productMappings;
     }
 
     @Override

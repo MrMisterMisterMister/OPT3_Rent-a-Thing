@@ -1,8 +1,8 @@
-package com.rentathing.products;
+package com.rentathing.models;
 
 import com.rentathing.authentication.EmployeeSessionManager;
 import com.rentathing.pricecalculators.CarRentalPriceCalculator;
-import com.rentathing.ui.product.CarDetailsController;
+import com.rentathing.ui.product.details.CarDetailsController;
 
 public class Car extends Product {
 
@@ -31,7 +31,7 @@ public class Car extends Product {
 
     @Override
     public void detailScreen(EmployeeSessionManager sessionManager) {
-        String fxml = "/com/rentathing/fxml/product/CarDetailsScreen.fxml";
+        String fxml = "/com/rentathing/fxml/product/details/CarDetailsScreen.fxml";
         CarDetailsController controller = new CarDetailsController();
         controller.setProduct(this);
         controller.setRentalPriceCalculator(new CarRentalPriceCalculator());

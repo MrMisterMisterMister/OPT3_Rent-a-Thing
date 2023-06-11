@@ -2,8 +2,8 @@ package com.rentathing.ui;
 
 import com.rentathing.authentication.EmployeeSessionManager;
 import com.rentathing.observers.IObserver;
-import com.rentathing.products.Product;
-import com.rentathing.utils.EmployeeSessionAware;
+import com.rentathing.models.Product;
+import com.rentathing.utils.session.EmployeeSessionAware;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -111,7 +111,6 @@ public class OverviewController implements IObserver, Initializable, EmployeeSes
             overviewTableView.setPlaceholder(null);
         }
     }
-
 
     @Override
     public void update() {

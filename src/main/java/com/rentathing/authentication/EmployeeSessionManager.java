@@ -1,5 +1,7 @@
 package com.rentathing.authentication;
 
+import com.rentathing.models.Employee;
+
 public class EmployeeSessionManager {
     private Employee activeEmployee;
 

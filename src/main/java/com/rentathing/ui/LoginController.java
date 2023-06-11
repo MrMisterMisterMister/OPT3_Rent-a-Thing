@@ -1,9 +1,9 @@
 package com.rentathing.ui;
 
-import com.rentathing.authentication.Employee;
+import com.rentathing.models.Employee;
 import com.rentathing.authentication.EmployeeAuthenticationManager;
 import com.rentathing.authentication.EmployeeSessionManager;
-import com.rentathing.utils.ScreenNavigator;
+import com.rentathing.utils.screen.ScreenNavigator;
 import io.github.palexdev.materialfx.controls.MFXPasswordField;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.fxml.FXML;
@@ -34,7 +34,7 @@ public class LoginController {
 
     private void openMainMenuScreen(Employee employee) {
         EmployeeSessionManager sessionManager = new EmployeeSessionManager(employee);
-        screenNavigator.openScreen("/com/rentathing/fxml/MainMenuScreen.fxml", MainMenuController.class, sessionManager);
+        screenNavigator.openScreen("/com/rentathing/fxml/MainMenuScreen.fxml", MainMenuController.class, sessionManager, null, null);
     }
 
     private void handleInvalidLogin() {

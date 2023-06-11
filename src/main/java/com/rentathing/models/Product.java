@@ -1,9 +1,9 @@
-package com.rentathing.products;
+package com.rentathing.models;
 
 import com.rentathing.authentication.EmployeeSessionManager;
 import com.rentathing.rentalservice.RentalService;
 import com.rentathing.observers.Observable;
-import com.rentathing.utils.WindowOpener;
+import com.rentathing.utils.screen.WindowOpener;
 import javafx.fxml.FXMLLoader;
 
 import java.util.ArrayList;
@@ -22,6 +22,8 @@ public abstract class Product extends Observable {
 
         setChanged();
         notifyObservers();
+
+        System.out.println(this + " created");
     }
 
     public String getName() {

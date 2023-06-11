@@ -1,10 +1,14 @@
 package com.rentathing.factories;
 
-import com.rentathing.products.Drill;
+import com.rentathing.models.Drill;
+import com.rentathing.models.Product;
 
-public class DrillFactory implements IDrillFactory {
+public class DrillFactory implements IProductFactory {
     @Override
-    public Drill createDrill(String name, String brand, String type) {
-        return new Drill(name, brand, type);
+    public Product createProduct(String productName, String... additionalParams) {
+        String brand = additionalParams[0];
+        String type = additionalParams[1];
+
+        return new Drill(productName, brand, type);
     }
 }

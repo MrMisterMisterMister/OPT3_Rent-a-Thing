@@ -1,5 +1,7 @@
 package com.rentathing.authentication;
 
+import com.rentathing.models.Employee;
+
 import java.util.ArrayList;
 
 public class EmployeeAuthenticationManager {
