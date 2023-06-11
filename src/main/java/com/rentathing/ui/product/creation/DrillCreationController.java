@@ -13,8 +13,6 @@ import java.util.ResourceBundle;
 public class DrillCreationController extends ProductCreationController {
 
     @FXML
-    private MFXTextField productNameTextField;
-    @FXML
     private MFXTextField brandTextField;
     @FXML
     private MFXTextField typeTextField;

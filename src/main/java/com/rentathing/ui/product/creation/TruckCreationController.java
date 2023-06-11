@@ -13,8 +13,6 @@ import java.util.ResourceBundle;
 public class TruckCreationController extends ProductCreationController {
 
     @FXML
-    private MFXTextField productNameTextField;
-    @FXML
     private MFXTextField loadCapacityTextField;
     @FXML
     private MFXTextField engineCapacityTextField;

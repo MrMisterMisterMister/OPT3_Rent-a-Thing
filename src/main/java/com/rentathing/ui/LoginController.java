@@ -38,7 +38,6 @@ public class LoginController {
     }
 
     private void handleInvalidLogin() {
-        // Handle the invalid login
         System.out.println("Invalid login");
     }
 }
