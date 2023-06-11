@@ -1,5 +1,5 @@
 # OPT3_Rent-a-Thing
-OPT3 Standaard Casus
+OPT3 Standaard Casus (BEWARE OF BUGS)
 
 **Standaard casus**
 
