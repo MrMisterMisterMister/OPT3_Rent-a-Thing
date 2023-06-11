@@ -59,16 +59,3 @@ public class ScreenNavigator {
         e.printStackTrace();
     }
 }
-
-/***
- * Single Responsibility Principle (SRP): The ScreenNavigator class focuses on navigation between screens and loading controllers.
- * It encapsulates the responsibility of managing screen transitions, which is a single, well-defined responsibility.
- *
- * Open-Closed Principle (OCP): The openScreen method is open for extension but closed for modification. It accepts a generic
- * controllerClass parameter, allowing for different controller implementations to be passed dynamically without modifying the
- * method signature.
- *
- * Dependency Inversion Principle (DIP): The ScreenNavigator class depends on abstractions (EmployeeSessionManager and IProductFactory)
- * rather than concrete implementations. This allows for flexibility and easier testing, as dependencies can be replaced with mock or
- * stub implementations.
- ***/
